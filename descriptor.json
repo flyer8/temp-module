@@ -1,0 +1,266 @@
+{
+	"id": "ed3da0f7-e773-4dca-b08a-b3f8dde09739",
+	"name": "Random Forest Classification Learn",
+	"description": "Trains a random forest models for applying in corresponding prediction module.",
+	"fullDescription": "Random forest is an ensemble learning method for classification, regression and other tasks that operates by constructing a multitude of decision trees at training time and outputting the class that is the mode of the classes of the individual trees. Random decision forests correct for decision trees' habit of overfitting to their training set.",
+	"icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwLjUgMEgxMy41VjEuNUgxMi43NVY2Ljc1TDE5LjUgNi43NVYxMi43NUgyMy4yNVYyMC4yNUgyNFYyMS43NUgyMVYyMC4yNUgyMS43NVYxNC4yNUgxNS43NVYyMC4yNUgxNi41VjIxLjc1SDEzLjVWMjAuMjVIMTQuMjVWMTIuNzVIMThWOC4yNUg2VjEyLjc1SDkuNzVWMTcuMjVIMTIuNzVWMjIuNUgxMy41VjI0SDEwLjVWMjIuNUgxMS4yNVYxOC43NUg2Ljc1VjIyLjVINy41VjI0SDQuNVYyMi41SDUuMjVWMTcuMjVIOC4yNVYxNC4yNUgyLjI1TDIuMjUgMjAuMjVIM1YyMS43NUgwVjIwLjI1SDAuNzVWMTIuNzVINC41VjYuNzVIMTEuMjVWMS41SDEwLjVWMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=",
+	"moduleType": "train",
+	"predictionCompanion" : "4b991c9c-35fd-4101-92ee-db60445d39d9",
+	"uiResults": {
+	    "components": [
+      {
+        "type": "table",
+        "order": 1,
+        "label": "Best parameters",
+        "port": "serModelTable",
+        "config": {
+          "datasets": [
+            {
+              "dataKey": "serModelTable",
+              "columns": [
+                {
+                  "label": "Name",
+                  "dataKey": "name",
+                  "format": "",
+                  "style": {
+                    "width": "160"
+                  }
+                },
+                {
+                  "label": "Value",
+                  "dataKey": "value",
+                  "format": "",
+                  "style": {
+                    "width": "160"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+	},
+	"uiForm":
+	{
+		"components": [
+            {
+                "parameter": ["n_estimators_min", "n_estimators_max"],
+                "uiComponent": "range",
+                "type": "integer",
+                "label": "n_estimators",
+                "order": 1,
+                "labelsValue": ["From", "To"],
+                "defaultValue": [10, 120],
+                "limits": {
+                    "min": 1,
+                    "max": 300
+                },
+                "step": 1
+            },
+            {
+                "parameter": ["min_samples_leaf_min", "min_samples_leaf_max"],
+                "uiComponent": "range",
+                "type": "integer",
+                "label": "min_samples_leaf",
+                "order": 1,
+                "labelsValue": ["From", "To"],
+                "defaultValue": [1, 15],
+                "limits": {
+                    "min": 1,
+                    "max": 100
+                },
+                "step": 1
+            },
+            {
+                "parameter": "criterion",
+                "uiComponent": "select",
+                "type": "string",
+                "label": "criterion",
+                "order": 1,
+                "allowedValues": [
+                    {
+                        "gini": "gini"
+                    },
+                    {
+                        "entropy": "entropy"
+                    }
+                ],
+                "defaultValue": "gini"
+            },
+            {
+                "parameter": ["max_depth_min", "max_depth_max"],
+                "uiComponent": "range",
+                "type": "integer",
+                "label": "max_depth",
+                "order": 1,
+                "labelsValue": ["From", "To"],
+                "defaultValue": [3, 7],
+                "limits": {
+                    "min": 1,
+                    "max": 20
+                },
+                "step": 1
+            },
+            {
+                "parameter": ["min_samples_split_min", "min_samples_split_max"],
+                "uiComponent": "range",
+                "type": "integer",
+                "label": "min_samples_split",
+                "order": 1,
+                "labelsValue": ["From", "To"],
+                "defaultValue": [10, 30],
+                "limits": {
+                    "min": 1,
+                    "max": 100
+                },
+                "step": 5
+            },
+            {
+                "parameter": ["random_seed", "lock_seed"],
+                "order": 4,
+                "label": "random_seed (mod 2^16)",
+                "type": "string",
+                "uiComponent": "seed",
+                "defaultValue": [null, true]
+            },
+            {
+                "parameter": "hyperopt_iters",
+                "uiComponent": "input",
+                "type": "integer",
+                "label": "hyperopt_iters",
+                "order": 1,
+                "defaultValue": 3,
+                "limits": {
+                    "min": 1,
+                    "max": 15
+                },
+                "step": 1
+            },
+            {
+                "parameter": "n_folds",
+                "uiComponent": "input",
+                "type": "integer",
+                "label": "n_folds",
+                "order": 1,
+                "defaultValue": 4,
+                "limits": {
+                    "min": 1,
+                    "max": 20
+                },
+                "step": 1
+            }
+		]
+	},
+	"ports": [
+		{
+			"in": true,
+			"name": "df_src",
+			"label": "Input dataframe",
+			"order": 1,
+			"description": "Input dataframe contains a target column and one or more factors",
+			"type": "dataframe",
+			"shape": "shape_dataframe"
+		},
+		{
+			"in": true,
+			"name": "df_test",
+			"label": "Input test dataframe",
+			"order": 2,
+			"description": "Optional input test dataframe contains a target column and one or more factors",
+			"type": "dataframe",
+			"shape": "shape_dataframe",
+			"required": false
+		},
+		{
+			"in": false,
+			"name": "transformedDataframe",
+			"label": "Transformed dataframe",
+			"order": 1,
+			"description": "Result of transformation of training dataframe according to the trained logit model.",
+			"type": "dataframe",
+			"shape": "shape_dataframe",
+            "transformedFrom": "df_src",
+            "defaultRole": "Score"
+		},
+		{
+			"in": false,
+			"name": "transformedDataframeTest",
+			"label": "Transformed test dataframe",
+			"order": 2,
+			"description": "Result of transformation of test dataframe according to the trained logit model.",
+			"type": "dataframe",
+			"shape": "shape_dataframe",
+            "transformedFrom": "df_src",
+            "defaultRole": "Score"
+		},
+		{
+			"in": false,
+			"name": "serialized_model",
+			"label": "Model",
+			"order": 3,
+			"description": "Output port for a family of logistic regression models.",
+			"type": "default",
+			"shape": "shape_model"
+		},
+		{
+			"in": false,
+			"name": "serModelTable",
+			"label": "ModelTable",
+			"order": 4,
+			"description": "Best params",
+			"type": "hidden",
+			"shape": "shape_model"
+		}
+	],
+	"shape": "MODELING",
+	"script":
+	{
+		"type": "python",
+		"deployType": "docker",
+		"runConfiguration":
+		{
+			"sourceFiles": ["source/rf_train.py"],
+			"functionName": "random_forest_train",
+			"functionParameters": [
+				{
+					"name": "factors",
+					"type": "column",
+					"roles": [
+						{
+							"role": "input",
+							"type": "interval",
+							"multiple": true
+						}
+					],
+					"from": "df_src"
+				},
+				{
+					"name": "nm_target",
+					"type": "column",
+					"roles": [
+						{
+							"role": "target",
+							"type": "interval",
+							"multiple": false
+						}
+					],
+					"from": "df_src"
+				},
+				{
+					"name": "nm_weight",
+					"type": "column",
+					"roles": [
+						{
+							"role": "weight",
+							"type": "interval",
+							"multiple": false
+						}
+					],
+					"from": "df_src",
+					"required": false
+				}
+			]
+		}
+	}
+}
